@@ -1,0 +1,37 @@
+{% extends 'tasks/base.html' %}
+{% load static %}
+
+{% block content %}
+
+  <main id="main" class="main">
+
+
+
+    <section class="section dashboard">
+      <div class="row">
+        <!-- Left side columns -->
+        <div class="col-lg-8">
+          <div class="row">
+
+            <div class="col-12">
+                <div class="card recent-sales overflow-auto">
+                        <div class="card-body">
+                             <a href="{% url 'task:add_task' %}" class="btn btn-success" role="button">Добавить</a>
+                                   <h5 class="card-title bi bi-person">Пациенты<span></span></h5>
+                                        <form action="{% url 'task:add_task' %}" method="post" enctype="multipart/form-data">
+                                            {% csrf_token %}
+
+                                            {{ form.as_p }}
+
+                                            <button type="submit" class="btn btn-success">Добавить</button>
+
+                                        </form>
+
+                        </div>
+                </div>
+            </div>
+       </div>
+  </div>
+</div>
+
+{% endblock %}

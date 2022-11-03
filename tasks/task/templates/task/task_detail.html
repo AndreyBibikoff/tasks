@@ -1,0 +1,146 @@
+{% extends 'tasks/base.html' %}
+{% load static %}
+
+{% block content %}
+  <main id="main" class="main">
+
+
+
+    <section class="section dashboard">
+      <div class="row">
+        <!-- Left side columns -->
+        <div class="col-lg-8">
+          <div class="row">
+
+            <!-- Reports -->
+                    <form action="{% url 'task:task_detail' task.pk %}" method="post" enctype="multipart/form-data">
+                                  {% csrf_token %}
+
+            <div class="col-12">
+              <div class="card recent-sales overflow-auto">
+
+
+                <div class="card-body">
+                  <h5 class="card-title bi bi-person"> {{ task.theme }} <span></span></h5>
+                    <p> Автор - {{ task.author }}  </p>
+                                  <p class="text-muted">Обновлен {{ task.updated|date:"d-m-Y H:i:s" }}  -  {{ task.update_author }}</p>
+                  <table class="table table-borderless datatable">
+                        {{ update_form.as_table }}
+                  </table>
+                                                    <p class="button"><button type="submit" class="btn btn-success">Сохранить</button></p>
+                </div>
+
+              </div>
+            </div><!-- End Recent Sales -->
+
+            <div class="col-12">
+              <div class="card recent-sales overflow-auto">
+
+
+                <div class="card-body">
+                  <h5 class="card-title bi bi-chat-left-text"> Комментарии <span></span></h5>
+              <div class="row mb-3">
+                  <table>
+            <thead>
+                <tr>
+                    <th scope="col">Дата</th>
+                    <th scope="col">Комментарий</th>
+                    <th scope="col">Автор</th>
+                </tr>
+            </thead>
+            <tbody>
+              {% for comm in task.comment.all %}
+                <tr>
+                    <td>{{ comm.created|date:"d-m-Y H:i:s " }}</td>
+                    <td class="form-control">{{ comm }}</td>
+                    <td>({{ comm.author.username }})</td>
+                </tr>              {% endfor %}
+            </tbody>
+                                           </table>
+                  <div class="container">{{ comment }}
+                      <p class="button"><button type="submit" name="img" class="btn btn-success">Сохранить</button></p>
+                  </div>
+
+                </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div><!-- End Left side columns -->
+
+        <!-- Right side columns -->
+          <div class="col-lg-4">
+
+
+          <div class="card">
+
+        <div class="card-body pb-0">
+              <h5 class="card-title">Документы</h5>
+                {% csrf_token %}
+                    {{ doc }}
+                <button type="submit" class="btn btn-success">Сохранить</button>
+            <p>
+                                <table>
+                            <tr>Имя файла</tr>
+
+            {% for document in task.task_documents.all %}
+
+                    <p>
+                                        <a href="{{ document.document.url }}">{{ document.filename }}</a>
+
+                    </p>
+
+            {% endfor %}
+                                    </table>
+</p>
+            </div>
+
+          </div><!-- End Budget Report -->
+          <!-- Budget Report -->
+
+           <div class="card">
+
+
+
+
+           <div class="card">
+               <div class="card-body pb-1">
+              <h5 class="card-title">Изображения</h5>
+                {% csrf_token %}
+                    {{ img }}
+                <button type="submit" name="submit_img" class="btn btn-success">Сохранить</button>
+                {% for image in task.task_images.all %}
+                     {% if image.img %}
+                        {% load thumbnail %}
+                {% thumbnail image.img "150" as im %}
+                <a href="{{ image.img.url }}">
+                     <img src="{{ im.url }}"  class="img-thumbnail" alt="">
+                </a>
+                {% endthumbnail %}
+
+                {% endif %}
+            {% endfor %}
+            </form>
+            </div>
+           </div>
+
+          </div><!-- End Budget Report -->
+
+          <!-- Website Traffic -->
+
+          <!-- News & Updates Traffic -->
+
+
+        </div><!-- End Right side columns -->
+
+      </div>
+    </section>
+
+  </main><!-- End #main -->
+
+
+{% endblock %}
+
+

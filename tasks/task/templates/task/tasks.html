@@ -1,0 +1,123 @@
+{% extends 'tasks/base.html' %}
+{% load static %}
+
+{% block content %}
+  <main id="main" class="main">
+
+
+
+    <section class="section dashboard">
+      <div class="row">
+        <!-- Left side columns -->
+        <div class="col-lg-8">
+          <div class="row">
+
+            <!-- Reports -->
+
+            <div class="col-12">
+              <div class="card recent-sales overflow-auto">
+
+
+                <div class="card-body">
+                  <a href="{% url 'task:add_task' %}" class="btn btn-success" role="button">Добавить</a>
+
+                  <h5 class="card-title bi bi-person"> Задачи<span></span></h5>
+
+                  <table class="table table-borderless datatable">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Дата</th>
+                        <th scope="col">Тема</th>
+                        <th scope="col">Автор</th>
+                        <th scope="col">Исполнитель</th>
+                        <th scope="col">Статус</th>
+                        <th scope="col">Срок</th>
+
+                      </tr>
+                    </thead>
+                    <tbody>
+                         {% for task in task_obj %}
+                            {% if task.status == 'CLS' %}
+
+                         <tr>
+                        <th scope="row"><a class="link-success text-decoration-line-through" href="{% url 'task:task_detail' task.pk%}">{{ task.id }}</a></th>
+                        <td><a class="link-success text-decoration-line-through" href="{% url 'task:task_detail' task.pk%}">{{ task.date }}</a></td>
+                        <td><a class="link-success text-decoration-line-through" href="{% url 'task:task_detail' task.pk%}">{{ task.theme }}</a></td>
+                        <td><a class="link-success text-decoration-line-through" href="{% url 'task:task_detail' task.pk%}">{{ task.author }}</a></td>
+                        <td><a class="link-success text-decoration-line-through" href="{% url 'task:task_detail' task.pk%}">{{ task.executor }}</a></td>
+                        <td><a class="link-success text-decoration-line-through" href="{% url 'task:task_detail' task.pk%}">{{ task.get_status_display }}</a></td>
+                        <td><a class="link-success text-decoration-line-through" href="{% url 'task:task_detail' task.pk%}">{{ task.deadline }}</a></td>
+
+                         {% elif task.status == 'C'  %}
+
+                         <tr>
+                        <th scope="row"><a class="link-success" href="{% url 'task:task_detail' task.pk%}">{{ task.id }}</a></th>
+                        <td><a class="link-success" href="{% url 'task:task_detail' task.pk%}">{{ task.date }}</a></td>
+                        <td><a class="link-success" href="{% url 'task:task_detail' task.pk%}">{{ task.theme }}</a></td>
+                        <td><a class="link-success" href="{% url 'task:task_detail' task.pk%}">{{ task.author }}</a></td>
+                        <td><a class="link-success" href="{% url 'task:task_detail' task.pk%}">{{ task.executor }}</a></td>
+                        <td><a class="link-success" href="{% url 'task:task_detail' task.pk%}">{{ task.get_status_display }}</a></td>
+                        <td><a class="link-success" href="{% url 'task:task_detail' task.pk%}">{{ task.deadline }}</a></td>
+
+                           {% elif task.status == 'NC'  %}
+
+                         <tr>
+                        <th scope="row"><a class="link-success" href="{% url 'task:task_detail' task.pk%}">{{ task.id }}</a></th>
+                        <td><a class="text-danger" href="{% url 'task:task_detail' task.pk%}">{{ task.date }}</a></td>
+                        <td><a class="text-danger" href="{% url 'task:task_detail' task.pk%}">{{ task.theme }}</a></td>
+                        <td><a class="text-danger" href="{% url 'task:task_detail' task.pk%}">{{ task.author }}</a></td>
+                        <td><a class="text-danger" href="{% url 'task:task_detail' task.pk%}">{{ task.executor }}</a></td>
+                        <td><a class="text-danger" href="{% url 'task:task_detail' task.pk%}">{{ task.get_status_display }}</a></td>
+                        <td><a class="text-danger" href="{% url 'task:task_detail' task.pk%}">{{ task.deadline }}</a></td>
+
+                           {% else %}
+
+                         </tr>
+                      <tr>
+                        <th scope="row"><a class="text-secondary" href="{% url 'task:task_detail' task.pk%}">{{ task.id }}</a></th>
+                        <td><a class="text-secondary" href="{% url 'task:task_detail' task.pk%}">{{ task.date }}</a></td>
+                        <td><a class="text-secondary" href="{% url 'task:task_detail' task.pk%}">{{ task.theme }}</a></td>
+                        <td><a class="text-secondary" href="{% url 'task:task_detail' task.pk%}">{{ task.author }}</a></td>
+                        <td><a class="text-secondary" href="{% url 'task:task_detail' task.pk%}">{{ task.executor }}</a></td>
+                        <td><a class="text-secondary" href="{% url 'task:task_detail' task.pk%}">{{ task.get_status_display }}</a></td>
+                        <td><a class="text-secondary" href="{% url 'task:task_detail' task.pk%}">{{ task.deadline }}</a></td>
+
+                      </tr>
+                         {% endif %}
+                    {% endfor %}
+                    </tbody>
+                  </table>
+<nav aria-label="Page navigation example">
+  <ul class="pagination justify-content-center">
+    <li class="page-item">
+      </a>
+              {% for page in task_obj.paginator.page_range %}
+
+    </li>
+    <li class="page-item"><a class="page-link" href="?page={{ page }}">{{ page }}</a></li>
+            {% endfor %}
+      </a>
+    </li>
+
+  </ul>
+</nav>
+                </div>
+
+
+
+              </div>
+            </div><!-- End Recent Sales -->
+
+
+          </div>
+        </div><!-- End Left side columns -->
+
+        <!-- Right side columns -->
+
+      </div>
+    </section>
+
+  </main><!-- End #main -->
+
+    {% endblock %}
