@@ -1,0 +1,32 @@
+.block1 {
+    padding-top: 30px;
+    padding-left: 100px;
+}
+
+.block_inside {
+    padding-top: 30px;
+    padding-left: 0px;
+}
+
+ .footer_container {
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.footer_content {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+.footer {
+    margin-top: auto;
+}
+
+.button_inside {
+    padding-top: 20px;
+    padding-left: 0x;
+    width: 10px;
+}
