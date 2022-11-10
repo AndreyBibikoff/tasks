@@ -17,7 +17,7 @@
                 <div class="card recent-sales overflow-auto">
                         <div class="card-body">
                              <a href="{% url 'task:add_task' %}" class="btn btn-success" role="button">Добавить</a>
-                                   <h5 class="card-title bi bi-person">Пациенты<span></span></h5>
+                                   <h5 class="card-title bi bi-person">Новая задача<span></span></h5>
                                         <form action="{% url 'task:add_task' %}" method="post" enctype="multipart/form-data">
                                             {% csrf_token %}
 
