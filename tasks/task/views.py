@@ -1,5 +1,5 @@
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.views import LoginView
+from django.contrib.auth.views import LoginView, LogoutView
 from django.core.paginator import Paginator
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
@@ -9,7 +9,7 @@ from django.urls import reverse, reverse_lazy
 from django.views.generic import CreateView
 
 from task.forms import AddTaskForm, DetailTaskForm, TaskCommentForm, TaskUserLoginForm, TaskUserRegisterForm, ImgToForm, \
-    DocumentToForm
+    DocumentToForm, DetailAuthorTaskForm
 from task.models import Task
 
 
@@ -79,6 +79,8 @@ def task_detail(request, pk):
     task = get_object_or_404(Task, pk=pk)
     title = f'Задача {task.id} - {task.theme}'
     task_form = DetailTaskForm(request.POST, request.FILES, instance=task)
+    if request.user.pk == task.author.pk:
+        task_form = DetailAuthorTaskForm(request.POST, request.FILES, instance=task)
     img = ImgToForm(request.POST, request.FILES)
     comment = TaskCommentForm(request.POST, request.FILES)
     document = DocumentToForm(request.POST, request.FILES)
@@ -114,7 +116,10 @@ def task_detail(request, pk):
                 return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
     else:
-        task_form = DetailTaskForm(instance=task)
+        if request.user.pk == task.author.pk:
+            task_form = DetailAuthorTaskForm(instance=task)
+        else:
+            task_form = DetailTaskForm(instance=task)
         img = ImgToForm()
         comment = TaskCommentForm()
 

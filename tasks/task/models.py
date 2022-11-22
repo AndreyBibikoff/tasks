@@ -10,19 +10,21 @@ class TaskUser(AbstractUser):
     create = models.DateTimeField(verbose_name='создан', auto_now_add=True)
 
 
+BOOL_CHOICES = ((True, 'Закрыта'), (False, 'Открыта'))
+
+
 class Task(models.Model):
     New = 'N'
     In_work = 'W'
     Complete = 'C'
     Not_comlete = 'NC'
-    Close = 'CLS'
     Status_CHOICES = (
         (New, 'Новая'),
         (In_work, 'В работе'),
         (Complete, 'Завершена'),
         (Not_comlete, 'Невозможно выполнить'),
-        (Close, 'Закрыта'),
     )
+    close = models.BooleanField(verbose_name='Закрыть', choices=BOOL_CHOICES, default=False)
     date = models.DateTimeField(verbose_name='Создан', auto_now_add=True)
     author = models.ForeignKey(TaskUser, verbose_name='Автор', related_name='Автор', on_delete=models.PROTECT)
     status = models.CharField(verbose_name='Статус', max_length=3, choices=Status_CHOICES, default='N')

@@ -24,6 +24,15 @@
                   <h5 class="card-title bi bi-person"> {{ task.theme }} <span></span></h5>
                     <p> Автор - {{ task.author }}  </p>
                                   <p class="text-muted">Обновлен {{ task.updated|date:"d-m-Y H:i:s" }}  -  {{ task.update_author }}</p>
+                                    <p>{{ task.is_active }}</p>
+                    {% if task.close == True%}
+
+                        <p class="text-success">Закрыта</p>
+                    {% else %}
+                        <p class="text-success">Открыта</p>
+
+
+                    {% endif %}
                   <table class="table table-borderless datatable">
                         {{ update_form.as_table }}
                   </table>

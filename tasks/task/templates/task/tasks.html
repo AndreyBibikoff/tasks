@@ -38,7 +38,9 @@
                     </thead>
                     <tbody>
                          {% for task in task_obj %}
-                            {% if task.status == 'CLS' %}
+
+              {% if task.close == True %}
+                       {% if task.status == 'C'  %}
 
                          <tr>
                         <th scope="row"><a class="link-success text-decoration-line-through" href="{% url 'task:task_detail' task.pk%}">{{ task.id }}</a></th>
@@ -49,7 +51,33 @@
                         <td><a class="link-success text-decoration-line-through" href="{% url 'task:task_detail' task.pk%}">{{ task.get_status_display }}</a></td>
                         <td><a class="link-success text-decoration-line-through" href="{% url 'task:task_detail' task.pk%}">{{ task.deadline }}</a></td>
 
-                         {% elif task.status == 'C'  %}
+                           {% elif task.status == 'NC'  %}
+
+                         <tr>
+                        <th scope="row"><a class="link-success text-decoration-line-through" href="{% url 'task:task_detail' task.pk%}">{{ task.id }}</a></th>
+                        <td><a class="text-danger text-decoration-line-through" href="{% url 'task:task_detail' task.pk%}">{{ task.date }}</a></td>
+                        <td><a class="text-danger text-decoration-line-through" href="{% url 'task:task_detail' task.pk%}">{{ task.theme }}</a></td>
+                        <td><a class="text-danger text-decoration-line-through" href="{% url 'task:task_detail' task.pk%}">{{ task.author }}</a></td>
+                        <td><a class="text-danger text-decoration-line-through" href="{% url 'task:task_detail' task.pk%}">{{ task.executor }}</a></td>
+                        <td><a class="text-danger text-decoration-line-through" href="{% url 'task:task_detail' task.pk%}">{{ task.get_status_display }}</a></td>
+                        <td><a class="text-danger text-decoration-line-through" href="{% url 'task:task_detail' task.pk%}">{{ task.deadline }}</a></td>
+
+                           {% else %}
+
+                         </tr>
+                      <tr>
+                        <th scope="row"><a class="text-secondary text-decoration-line-through" href="{% url 'task:task_detail' task.pk%}">{{ task.id }}</a></th>
+                        <td><a class="text-secondary text-decoration-line-through" href="{% url 'task:task_detail' task.pk%}">{{ task.date }}</a></td>
+                        <td><a class="text-secondary text-decoration-line-through" href="{% url 'task:task_detail' task.pk%}">{{ task.theme }}</a></td>
+                        <td><a class="text-secondary text-decoration-line-through" href="{% url 'task:task_detail' task.pk%}">{{ task.author }}</a></td>
+                        <td><a class="text-secondary text-decoration-line-through" href="{% url 'task:task_detail' task.pk%}">{{ task.executor }}</a></td>
+                        <td><a class="text-secondary text-decoration-line-through" href="{% url 'task:task_detail' task.pk%}">{{ task.get_status_display }}</a></td>
+                        <td><a class="text-secondary text-decoration-line-through" href="{% url 'task:task_detail' task.pk%}">{{ task.deadline }}</a></td>
+
+                      </tr>
+                         {% endif %}
+              {% else %}
+                         {% if task.status == 'C'  %}
 
                          <tr>
                         <th scope="row"><a class="link-success" href="{% url 'task:task_detail' task.pk%}">{{ task.id }}</a></th>
@@ -85,7 +113,8 @@
 
                       </tr>
                          {% endif %}
-                    {% endfor %}
+                    {% endif %}
+                         {% endfor %}
                     </tbody>
                   </table>
 <nav aria-label="Page navigation example">

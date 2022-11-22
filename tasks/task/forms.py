@@ -51,6 +51,22 @@ class DetailTaskForm(forms.ModelForm):
                 field.widget.attrs['disabled'] = True
 
 
+class DetailAuthorTaskForm(forms.ModelForm):
+    class Meta:
+        model = Task
+        fields = ['status', 'theme', 'deadline', 'text', 'executor', 'close']
+
+    def __init__(self, *args, **kwargs):
+        super(DetailAuthorTaskForm, self).__init__(*args, **kwargs)
+        self.fields['deadline'].widget = widgets.AdminDateWidget()
+        for field_name, field in self.fields.items():
+            if field_name != 'author':
+                field.widget.attrs['class'] = 'form-control'
+            else:
+                field.widget.attrs['class'] = 'form-control'
+                field.widget.attrs['disabled'] = True
+
+
 class TaskCommentForm(forms.ModelForm):
     class Meta:
         model = TaskComment
